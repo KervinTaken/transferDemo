@@ -55,6 +55,8 @@ public class ValidatorFactory {
 
             if (StringUtils.isBlank(entity.getSysEvtTraceId())) {
                 throw new CommonRuntimeException(
+
+
                         SvcRspCdEnum.A00000000002, ExceptionParams.SysEvtTraceId.getMessageZH());
             }
 
