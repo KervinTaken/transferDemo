@@ -22,6 +22,7 @@ public class ValidatorExecutor {
         if (this.validatorsList != null) {
             for (IValidator validator : validatorsList) {
                 validator.validator(e);
+
             }
         }
     }
