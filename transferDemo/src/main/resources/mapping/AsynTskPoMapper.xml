@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kervin.dao.AsynTskPoMapper">
+  <resultMap id="BaseResultMap" type="com.kervin.model.AsynTskPo">
+    <id column="ASYN_TSK_NO" jdbcType="VARCHAR" property="asynTskNo" />
+    <result column="CARD_NUM" jdbcType="VARCHAR" property="cardNum" />
+    <result column="MNPLT_DT" jdbcType="CHAR" property="mnpltDt" />
+    <result column="ASCHN_TSK_STATUS" jdbcType="CHAR" property="aschnTskStatus" />
+    <result column="MAX_EXEC_CNT" jdbcType="DECIMAL" property="maxExecCnt" />
+    <result column="EXEC_CNT" jdbcType="DECIMAL" property="execCnt" />
+    <result column="SYS_EVT_TRACE_ID" jdbcType="CHAR" property="sysEvtTraceId" />
+    <result column="SYS_SND_SERIAL_NO" jdbcType="CHAR" property="sysSndSerialNo" />
+    <result column="TSK_START_TM" jdbcType="DATE" property="tskStartTm" />
+    <result column="TSK_END_TM" jdbcType="DATE" property="tskEndTm" />
+    <result column="SVC_RSP_CD" jdbcType="CHAR" property="svcRspCd" />
+    <result column="SYS_RESP_DESC" jdbcType="VARCHAR" property="sysRespDesc" />
+    <result column="VNO" jdbcType="DECIMAL" property="vno" />
+    <result column="TIME_STAMPS" jdbcType="TIMESTAMP" property="timeStamps" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ASYN_TSK_NO, CARD_NUM, MNPLT_DT, ASCHN_TSK_STATUS, MAX_EXEC_CNT, EXEC_CNT, SYS_EVT_TRACE_ID, 
+    SYS_SND_SERIAL_NO, TSK_START_TM, TSK_END_TM, SVC_RSP_CD, SYS_RESP_DESC, VNO, TIME_STAMPS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from asyn_tsk
+    where ASYN_TSK_NO = #{asynTskNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAvailTsk"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from asyn_tsk
+    WHERE (ASCHN_TSK_STATUS = 0 OR ASCHN_TSK_STATUS = 3)
+      AND EXEC_CNT <![CDATA[<]]> MAX_EXEC_CNT
+      limit 10
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from asyn_tsk
+    where ASYN_TSK_NO = #{asynTskNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kervin.model.AsynTskPo">
+    insert into asyn_tsk (ASYN_TSK_NO, CARD_NUM, MNPLT_DT, 
+      ASCHN_TSK_STATUS, MAX_EXEC_CNT, EXEC_CNT, 
+      SYS_EVT_TRACE_ID, SYS_SND_SERIAL_NO, TSK_START_TM, 
+      TSK_END_TM, SVC_RSP_CD, SYS_RESP_DESC, 
+      VNO, TIME_STAMPS)
+    values (#{asynTskNo,jdbcType=VARCHAR}, #{cardNum,jdbcType=VARCHAR}, #{mnpltDt,jdbcType=CHAR}, 
+      #{aschnTskStatus,jdbcType=CHAR}, #{maxExecCnt,jdbcType=DECIMAL}, #{execCnt,jdbcType=DECIMAL}, 
+      #{sysEvtTraceId,jdbcType=CHAR}, #{sysSndSerialNo,jdbcType=CHAR}, #{tskStartTm,jdbcType=DATE}, 
+      #{tskEndTm,jdbcType=DATE}, #{svcRspCd,jdbcType=CHAR}, #{sysRespDesc,jdbcType=VARCHAR}, 
+      #{vno,jdbcType=DECIMAL}, #{timeStamps,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kervin.model.AsynTskPo">
+    insert into asyn_tsk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="asynTskNo != null">
+        ASYN_TSK_NO,
+      </if>
+      <if test="cardNum != null">
+        CARD_NUM,
+      </if>
+      <if test="mnpltDt != null">
+        MNPLT_DT,
+      </if>
+      <if test="aschnTskStatus != null">
+        ASCHN_TSK_STATUS,
+      </if>
+      <if test="maxExecCnt != null">
+        MAX_EXEC_CNT,
+      </if>
+      <if test="execCnt != null">
+        EXEC_CNT,
+      </if>
+      <if test="sysEvtTraceId != null">
+        SYS_EVT_TRACE_ID,
+      </if>
+      <if test="sysSndSerialNo != null">
+        SYS_SND_SERIAL_NO,
+      </if>
+      <if test="tskStartTm != null">
+        TSK_START_TM,
+      </if>
+      <if test="tskEndTm != null">
+        TSK_END_TM,
+      </if>
+      <if test="svcRspCd != null">
+        SVC_RSP_CD,
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC,
+      </if>
+      <if test="vno != null">
+        VNO,
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="asynTskNo != null">
+        #{asynTskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNum != null">
+        #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mnpltDt != null">
+        #{mnpltDt,jdbcType=CHAR},
+      </if>
+      <if test="aschnTskStatus != null">
+        #{aschnTskStatus,jdbcType=CHAR},
+      </if>
+      <if test="maxExecCnt != null">
+        #{maxExecCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="execCnt != null">
+        #{execCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="sysEvtTraceId != null">
+        #{sysEvtTraceId,jdbcType=CHAR},
+      </if>
+      <if test="sysSndSerialNo != null">
+        #{sysSndSerialNo,jdbcType=CHAR},
+      </if>
+      <if test="tskStartTm != null">
+        #{tskStartTm,jdbcType=DATE},
+      </if>
+      <if test="tskEndTm != null">
+        #{tskEndTm,jdbcType=DATE},
+      </if>
+      <if test="svcRspCd != null">
+        #{svcRspCd,jdbcType=CHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null">
+        #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kervin.model.AsynTskPo">
+    update asyn_tsk
+    <set>
+      <if test="cardNum != null">
+        CARD_NUM = #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mnpltDt != null">
+        MNPLT_DT = #{mnpltDt,jdbcType=CHAR},
+      </if>
+      <if test="aschnTskStatus != null">
+        ASCHN_TSK_STATUS = #{aschnTskStatus,jdbcType=CHAR},
+      </if>
+      <if test="maxExecCnt != null">
+        MAX_EXEC_CNT = #{maxExecCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="execCnt != null">
+        EXEC_CNT = #{execCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="sysEvtTraceId != null">
+        SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR},
+      </if>
+      <if test="sysSndSerialNo != null">
+        SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR},
+      </if>
+      <if test="tskStartTm != null">
+        TSK_START_TM = #{tskStartTm,jdbcType=DATE},
+      </if>
+      <if test="tskEndTm != null">
+        TSK_END_TM = #{tskEndTm,jdbcType=DATE},
+      </if>
+      <if test="svcRspCd != null">
+        SVC_RSP_CD = #{svcRspCd,jdbcType=CHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null">
+        VNO = #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ASYN_TSK_NO = #{asynTskNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kervin.model.AsynTskPo">
+    update asyn_tsk
+    set CARD_NUM = #{cardNum,jdbcType=VARCHAR},
+      MNPLT_DT = #{mnpltDt,jdbcType=CHAR},
+      ASCHN_TSK_STATUS = #{aschnTskStatus,jdbcType=CHAR},
+      MAX_EXEC_CNT = #{maxExecCnt,jdbcType=DECIMAL},
+      EXEC_CNT = #{execCnt,jdbcType=DECIMAL},
+      SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR},
+      SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR},
+      TSK_START_TM = #{tskStartTm,jdbcType=DATE},
+      TSK_END_TM = #{tskEndTm,jdbcType=DATE},
+      SVC_RSP_CD = #{svcRspCd,jdbcType=CHAR},
+      SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
+      VNO = #{vno,jdbcType=DECIMAL},
+      TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP}
+    where ASYN_TSK_NO = #{asynTskNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

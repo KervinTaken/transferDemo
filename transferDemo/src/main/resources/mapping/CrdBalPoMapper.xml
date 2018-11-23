@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kervin.dao.CrdBalPoMapper">
+  <resultMap id="BaseResultMap" type="com.kervin.model.CrdBalPo">
+    <id column="CARD_NUM" jdbcType="VARCHAR" property="cardNum" />
+    <result column="CARD_BAL" jdbcType="DECIMAL" property="cardBal" />
+    <result column="VNO" jdbcType="DECIMAL" property="vno" />
+    <result column="TIME_STAMPS" jdbcType="TIMESTAMP" property="timeStamps" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CARD_NUM, CARD_BAL, VNO, TIME_STAMPS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crd_bal
+    where CARD_NUM = #{cardNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from crd_bal
+    where CARD_NUM = #{cardNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kervin.model.CrdBalPo">
+    insert into crd_bal (CARD_NUM, CARD_BAL, VNO, 
+      TIME_STAMPS)
+    values (#{cardNum,jdbcType=VARCHAR}, #{cardBal,jdbcType=DECIMAL}, #{vno,jdbcType=DECIMAL}, 
+      #{timeStamps,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kervin.model.CrdBalPo">
+    insert into crd_bal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardNum != null">
+        CARD_NUM,
+      </if>
+      <if test="cardBal != null">
+        CARD_BAL,
+      </if>
+      <if test="vno != null">
+        VNO,
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardNum != null">
+        #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardBal != null">
+        #{cardBal,jdbcType=DECIMAL},
+      </if>
+      <if test="vno != null">
+        #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kervin.model.CrdBalPo">
+    update crd_bal
+    <set>
+      <if test="cardBal != null">
+        CARD_BAL = #{cardBal,jdbcType=DECIMAL},
+      </if>
+      <if test="vno != null">
+        VNO = #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CARD_NUM = #{cardNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kervin.model.CrdBalPo">
+    update crd_bal
+    set CARD_BAL = #{cardBal,jdbcType=DECIMAL},
+      VNO = #{vno,jdbcType=DECIMAL},
+      TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP}
+    where CARD_NUM = #{cardNum,jdbcType=VARCHAR}
+      and VNO = #{vno,jdbcType=DECIMAL} - 1
+  </update>
+</mapper>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kervin.dao.AhnLogPoMapper">
+  <resultMap id="BaseResultMap" type="com.kervin.model.AhnLogPo">
+    <id column="SYS_EVT_TRACE_ID" jdbcType="CHAR" property="sysEvtTraceId" />
+    <id column="SYS_SND_SERIAL_NO" jdbcType="CHAR" property="sysSndSerialNo" />
+    <result column="TXN_TYPE" jdbcType="CHAR" property="txnType" />
+    <result column="CARD_NUM" jdbcType="VARCHAR" property="cardNum" />
+    <result column="TXN_ID" jdbcType="CHAR" property="txnId" />
+    <result column="TXN_DSC" jdbcType="VARCHAR" property="txnDsc" />
+    <result column="TXN_COMPL_STATUS" jdbcType="CHAR" property="txnComplStatus" />
+    <result column="TXN_AMT" jdbcType="DECIMAL" property="txnAmt" />
+    <result column="TXN_CCY" jdbcType="CHAR" property="txnCcy" />
+    <result column="TXN_DT" jdbcType="CHAR" property="txnDt" />
+    <result column="AVL_BAL" jdbcType="DECIMAL" property="avlBal" />
+    <result column="TXN_OPNT_CARD_NUM" jdbcType="VARCHAR" property="txnOpntCardNum" />
+    <result column="VNO" jdbcType="DECIMAL" property="vno" />
+    <result column="TIME_STAMPS" jdbcType="TIMESTAMP" property="timeStamps" />
+    <result column="SVC_RSP_STATUS" jdbcType="CHAR" property="svcRspStatus" />
+    <result column="SVC_RSP_CD" jdbcType="CHAR" property="svcRspCd" />
+    <result column="SYS_RESP_DESC" jdbcType="VARCHAR" property="sysRespDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SYS_EVT_TRACE_ID, SYS_SND_SERIAL_NO, TXN_TYPE, CARD_NUM, TXN_ID, TXN_DSC, TXN_COMPL_STATUS, 
+    TXN_AMT, TXN_CCY, TXN_DT, AVL_BAL, TXN_OPNT_CARD_NUM, VNO, TIME_STAMPS, SVC_RSP_STATUS, 
+    SVC_RSP_CD, SYS_RESP_DESC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kervin.model.AhnLogPoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ahn_log
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR}
+      and SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kervin.model.AhnLogPoKey">
+    delete from ahn_log
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR}
+      and SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kervin.model.AhnLogPo">
+    insert into ahn_log (SYS_EVT_TRACE_ID, SYS_SND_SERIAL_NO, TXN_TYPE, 
+      CARD_NUM, TXN_ID, TXN_DSC, 
+      TXN_COMPL_STATUS, TXN_AMT, TXN_CCY, 
+      TXN_DT, AVL_BAL, TXN_OPNT_CARD_NUM, 
+      VNO, TIME_STAMPS, SVC_RSP_STATUS, 
+      SVC_RSP_CD, SYS_RESP_DESC)
+    values (#{sysEvtTraceId,jdbcType=CHAR}, #{sysSndSerialNo,jdbcType=CHAR}, #{txnType,jdbcType=CHAR}, 
+      #{cardNum,jdbcType=VARCHAR}, #{txnId,jdbcType=CHAR}, #{txnDsc,jdbcType=VARCHAR}, 
+      #{txnComplStatus,jdbcType=CHAR}, #{txnAmt,jdbcType=DECIMAL}, #{txnCcy,jdbcType=CHAR}, 
+      #{txnDt,jdbcType=CHAR}, #{avlBal,jdbcType=DECIMAL}, #{txnOpntCardNum,jdbcType=VARCHAR}, 
+      #{vno,jdbcType=DECIMAL}, #{timeStamps,jdbcType=TIMESTAMP}, #{svcRspStatus,jdbcType=CHAR}, 
+      #{svcRspCd,jdbcType=CHAR}, #{sysRespDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kervin.model.AhnLogPo">
+    insert into ahn_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysEvtTraceId != null">
+        SYS_EVT_TRACE_ID,
+      </if>
+      <if test="sysSndSerialNo != null">
+        SYS_SND_SERIAL_NO,
+      </if>
+      <if test="txnType != null">
+        TXN_TYPE,
+      </if>
+      <if test="cardNum != null">
+        CARD_NUM,
+      </if>
+      <if test="txnId != null">
+        TXN_ID,
+      </if>
+      <if test="txnDsc != null">
+        TXN_DSC,
+      </if>
+      <if test="txnComplStatus != null">
+        TXN_COMPL_STATUS,
+      </if>
+      <if test="txnAmt != null">
+        TXN_AMT,
+      </if>
+      <if test="txnCcy != null">
+        TXN_CCY,
+      </if>
+      <if test="txnDt != null">
+        TXN_DT,
+      </if>
+      <if test="avlBal != null">
+        AVL_BAL,
+      </if>
+      <if test="txnOpntCardNum != null">
+        TXN_OPNT_CARD_NUM,
+      </if>
+      <if test="vno != null">
+        VNO,
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS,
+      </if>
+      <if test="svcRspStatus != null">
+        SVC_RSP_STATUS,
+      </if>
+      <if test="svcRspCd != null">
+        SVC_RSP_CD,
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysEvtTraceId != null">
+        #{sysEvtTraceId,jdbcType=CHAR},
+      </if>
+      <if test="sysSndSerialNo != null">
+        #{sysSndSerialNo,jdbcType=CHAR},
+      </if>
+      <if test="txnType != null">
+        #{txnType,jdbcType=CHAR},
+      </if>
+      <if test="cardNum != null">
+        #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="txnId != null">
+        #{txnId,jdbcType=CHAR},
+      </if>
+      <if test="txnDsc != null">
+        #{txnDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="txnComplStatus != null">
+        #{txnComplStatus,jdbcType=CHAR},
+      </if>
+      <if test="txnAmt != null">
+        #{txnAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="txnCcy != null">
+        #{txnCcy,jdbcType=CHAR},
+      </if>
+      <if test="txnDt != null">
+        #{txnDt,jdbcType=CHAR},
+      </if>
+      <if test="avlBal != null">
+        #{avlBal,jdbcType=DECIMAL},
+      </if>
+      <if test="txnOpntCardNum != null">
+        #{txnOpntCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null">
+        #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+      <if test="svcRspStatus != null">
+        #{svcRspStatus,jdbcType=CHAR},
+      </if>
+      <if test="svcRspCd != null">
+        #{svcRspCd,jdbcType=CHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kervin.model.AhnLogPo">
+    update ahn_log
+    <set>
+      <if test="txnType != null">
+        TXN_TYPE = #{txnType,jdbcType=CHAR},
+      </if>
+      <if test="cardNum != null">
+        CARD_NUM = #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="txnId != null">
+        TXN_ID = #{txnId,jdbcType=CHAR},
+      </if>
+      <if test="txnDsc != null">
+        TXN_DSC = #{txnDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="txnComplStatus != null">
+        TXN_COMPL_STATUS = #{txnComplStatus,jdbcType=CHAR},
+      </if>
+      <if test="txnAmt != null">
+        TXN_AMT = #{txnAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="txnCcy != null">
+        TXN_CCY = #{txnCcy,jdbcType=CHAR},
+      </if>
+      <if test="txnDt != null">
+        TXN_DT = #{txnDt,jdbcType=CHAR},
+      </if>
+      <if test="avlBal != null">
+        AVL_BAL = #{avlBal,jdbcType=DECIMAL},
+      </if>
+      <if test="txnOpntCardNum != null">
+        TXN_OPNT_CARD_NUM = #{txnOpntCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vno != null">
+        VNO = #{vno,jdbcType=DECIMAL},
+      </if>
+      <if test="timeStamps != null">
+        TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP},
+      </if>
+      <if test="svcRspStatus != null">
+        SVC_RSP_STATUS = #{svcRspStatus,jdbcType=CHAR},
+      </if>
+      <if test="svcRspCd != null">
+        SVC_RSP_CD = #{svcRspCd,jdbcType=CHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR}
+      and SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kervin.model.AhnLogPo">
+    update ahn_log
+    set TXN_TYPE = #{txnType,jdbcType=CHAR},
+      CARD_NUM = #{cardNum,jdbcType=VARCHAR},
+      TXN_ID = #{txnId,jdbcType=CHAR},
+      TXN_DSC = #{txnDsc,jdbcType=VARCHAR},
+      TXN_COMPL_STATUS = #{txnComplStatus,jdbcType=CHAR},
+      TXN_AMT = #{txnAmt,jdbcType=DECIMAL},
+      TXN_CCY = #{txnCcy,jdbcType=CHAR},
+      TXN_DT = #{txnDt,jdbcType=CHAR},
+      AVL_BAL = #{avlBal,jdbcType=DECIMAL},
+      TXN_OPNT_CARD_NUM = #{txnOpntCardNum,jdbcType=VARCHAR},
+      VNO = #{vno,jdbcType=DECIMAL},
+      TIME_STAMPS = #{timeStamps,jdbcType=TIMESTAMP},
+      SVC_RSP_STATUS = #{svcRspStatus,jdbcType=CHAR},
+      SVC_RSP_CD = #{svcRspCd,jdbcType=CHAR},
+      SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR}
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=CHAR}
+      and SYS_SND_SERIAL_NO = #{sysSndSerialNo,jdbcType=CHAR}
+      and VNO = #{vno,jdbcType=DECIMAL} - 1
+  </update>
+</mapper>
